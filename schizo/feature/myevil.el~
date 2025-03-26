@@ -1,0 +1,51 @@
+;; -*- coding: utf-8; lexical-binding: t -*-
+
+;; Functions
+
+(use-package evil
+  :ensure t
+  :init
+  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+  (setq evil-want-keybinding nil)
+  :config
+  (evil-mode 1))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
+
+(use-package evil-surround
+  :ensure t
+  :after evil
+  :config
+  (global-evil-surround-mode 1))
+
+(use-package evil-anzu
+  :after evil
+  :ensure t)
+
+(use-package evil-args
+  :after evil
+  :ensure t)
+
+(use-package evil-lion
+  :after evil
+  :ensure t
+  :config
+  (evil-lion-mode))
+
+(use-package evil-goggles
+  :after evil
+  :ensure t
+  :config
+  (evil-goggles-mode)
+  (evil-goggles-use-diff-faces))
+
+(use-package evil-nerd-commenter
+              :after evil
+              :ensure t
+              :config
+              (evilnc-default-hotkeys))
+(provide 'my)

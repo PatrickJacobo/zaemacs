@@ -1,0 +1,13 @@
+ls
+which ls
+which yes
+yes
+ls
+cd .
+./xbps-src -R st
+cd ..
+./xbps-src -R str
+./xbps-src -R st
+./xbps-src show-options st
+./xbps-src show-options dwm
+find-file ./srcpkgs/st/template 

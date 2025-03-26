@@ -1,0 +1,10 @@
+elpaca/*
+tramp
+tree-sitter/*
+url/*
+parinfer-rust/*
+.*\~
+elpa/*
+auto-save-list/*
+.local/*
+eln-cache/*
