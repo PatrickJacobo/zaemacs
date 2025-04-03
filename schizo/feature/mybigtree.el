@@ -4,6 +4,18 @@
 ;; (mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
 (use-feature treesit
   :config
+  (dolist (mapping
+           '((python-mode . python-ts-mode)
+             (css-mode . css-ts-mode)
+             (typescript-mode . typescript-ts-mode)
+             (js2-mode . js-ts-mode)
+             (bash-mode . bash-ts-mode)
+             (conf-toml-mode . toml-ts-mode)
+             (go-mode . go-ts-mode)
+             (css-mode . css-ts-mode)
+             (json-mode . json-ts-mode)
+             (js-json-mode . json-ts-mode)))
+    (add-to-list 'major-mode-remap-alist mapping))
   (setq treesit-language-source-alist
    '((bash "https://github.com/tree-sitter/tree-sitter-bash")
      (cmake "https://github.com/uyha/tree-sitter-cmake")
@@ -26,4 +38,16 @@
      (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
      (xml "https://github.com/tree-sitter-grammars/tree-sitter-xml" "master" "xml/src")
      (yaml "https://github.com/ikatyang/tree-sitter-yaml"))))
+
+
+
+(use-package combobulate
+  :ensure (:host github :repo "mickeynp/combobulate")
+  :commands (combobulate)
+  :hook (tree-sitter-after-on . combobulate-mode))
+
+(use-package treesit-fold
+  :ensure (:host github :repo "emacs-tree-sitter/treesit-fold")
+  :hook (emacs-startup . global-treesit-fold-mode))
+
 (provide 'mybigtree)

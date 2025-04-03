@@ -8,3 +8,12 @@ elpa/*
 auto-save-list/*
 .local/*
 eln-cache/*
+/.lsp-session-v1
+/var/
+/backups/
+/emojis/
+/history/
+recentf
+/tldr/
+/transient/
+history

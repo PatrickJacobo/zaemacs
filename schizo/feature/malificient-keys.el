@@ -8,8 +8,14 @@
   :init
   (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
   (setq evil-want-keybinding nil)
+  (setq evil-undo-system 'undo-fu)
   :config
   (evil-mode 1))
+
+(use-package undo-fu
+  :ensure t)
+
+
 
 (use-package evil-collection
   :after evil
@@ -64,5 +70,23 @@
     (evil-define-key '(normal visual) 'global (kbd "C-c -") 'evil-numbers/dec-at-pt)
     (evil-define-key '(normal visual) 'global (kbd "C-c C-+") 'evil-numbers/inc-at-pt-incremental)
     (evil-define-key '(normal visual) 'global (kbd "C-c C--") 'evil-numbers/dec-at-pt-incremental))
+
+;; (use-package lispy
+;;   :ensure t
+;;   :hook ((lisp-mode . lispy-mode)
+;;          (emacs-lisp-mode . lispy-mode)
+;;          (ielm-mode . lispy-mode)
+;;          (scheme-mode . lispy-mode)
+;;          (racket-mode . lispy-mode)
+;;          (hy-mode . lispy-mode)
+;;          (lfe-mode . lispy-mode)
+;;          (dune-mode . lispy-mode)
+;;          (clojure-mode . lispy-mode)
+;;          (fennel-mode . lispy-mode)))
+;; (use-package lispyville
+;;   :ensure t
+;;   :hook lispy-mode
+;;   :config
+;;   (lispyville-set-key-theme '(operators c-w additional)))
 
 (provide 'malificient-keys)

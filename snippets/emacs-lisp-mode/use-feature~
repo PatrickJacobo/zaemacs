@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: 
+# name: use-feature
+# key: use-feature
+# --
+(use-feature $1
+  :config $2)

@@ -56,11 +56,17 @@ NAME and ARGS are in `use-package'."
      use-package-expand-minimally t))
 (add-to-list 'load-path "~/.config/emacs/schizo/modes")
 (add-to-list 'load-path "~/.config/emacs/schizo/feature")
-(require 'malificient-keys)
-(require 'mybigtree)
-(require 'schizo-which-key)
-(require 'philosophy)
-(require 'elespizzler)
+(setq user-full-name "Patrick Lee"
+      user-mail-address "leepatrick338@gmail.com")
+(setq gc-cons-threshold #x40000000)
+(setq read-process-output-max (* 1024 1024 4))
+(recentf-mode 1)
+(setq recentf-max-menu-items 25
+      recentf-max-saved-items 25)
+
+;; (electric-pair-mode 1)
+(global-set-key [escape] 'keyboard-escape-quit)
+
 ;; (add-to-list 'load-path "~/.config/emacs/schizo/aesthetics")
 ;; (add-to-list 'load-path "~/.config/emacs/schizo/modes")
 ;; end of init.el
@@ -143,8 +149,7 @@ Create prefix map: +general-global-NAME-map. Prefix bindings in BODY with PREFIX
  (+general-global-menu! "Dired" "e"
    "e" 'find-file
    "m" 'mkdir)
- (+general-global-menu! "Magit" "g"
-   "g" 'magit-status-here)
+ (+general-global-menu! "vc-control" "g")
    
 ;; buffer stuff
  (+general-global-menu! "buffer" "b"
@@ -166,57 +171,37 @@ Create prefix map: +general-global-NAME-map. Prefix bindings in BODY with PREFIX
 
 
 ;; Aesthetics
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(setq inhibit-startup-screen t)
-(setq inhibit-startup-message t)
-(global-display-line-numbers-mode)
-(add-hook 'prog-mode 'column-number-mode)
-(set-face-attribute 'default nil :family "Iosevka" :height 110)
-(set-face-attribute 'variable-pitch nil :family "Iosevka Aile")
-(column-number-mode)
+(setq-default indent-tabs-mode nil)
 ;; Theme
-(use-package doom-themes
-    :ensure t
-    :config
-    ;; Global settings (defaults)
-    (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-    (load-theme 'doom-tokyo-night t)
-
-    ;; Enable flashing mode-line on errors
-    (doom-themes-visual-bell-config)
-    ;add-hook 'prog; Enable custom neotree theme (nerd-icons must be installed!)
-    (doom-themes-neotree-config)
-    ;; or for treemacs users
-    (setq doom-themes-treemacs-theme "doom-tokyo-night") ; use "doom-colors" for less minimal icon theme
-    (doom-themes-treemacs-config)
-    ;; Corrects (and improves) org-mode's native fontification.
-    (doom-themes-org-config))
-
-(setq display-line-numbers 'relative)
-(display-line-numbers-mode)
-(use-package doom-modeline
- :ensure t
- :init (doom-modeline-mode 1))
-
 ;; org
-(use-package org-auto-tangle
- :ensure t
- :hook (org-mode . org-auto-tangle-mode))
-(use-package toc-org
-  :ensure t
-  :hook (org-mode . toc-org-mode)
-  (markdown-mode . toc-org-mode))
-(use-package solaire-mode
- :ensure t
- :config (solaire-global-mode +1))
 
 ;;magit (peak)
-(use-package transient :defer t)
+(use-package transient  :defer t)
 (use-package magit
- :defer t)
+  :defer t
+  :after (general)
+  :general
+  (+general-global-vc-control
+    "b"  'magit-branch
+    "B"  'magit-blame
+    "c"  'magit-clone
+    "f"  '(:ignore t :which-key "file")
+    "ff" 'magit-find-file
+    "fh" 'magit-log-buffer-file
+    "i"  'magit-init
+    "L"  'magit-list-repositories
+    "m"  'magit-dispatch
+    "S"  'magit-stage-file
+    "g"  'magit-status
+    "U"  'magit-unstage-file))
+(use-package diff-hl
+  :ensure t
+  :config
+  (global-diff-hl-mode))
+  ;; :config)
+  ;; (+global-general-vc-control-magit
+  ;;  "g" 'magit-status-here))
+  ;;  ;; "c" 'magit-commit))
 
 (use-package emacs-everywhere
  :ensure t)
@@ -235,18 +220,8 @@ Create prefix map: +general-global-NAME-map. Prefix bindings in BODY with PREFIX
  :after flycheck
  :ensure t
  :hook flycheck-mode)
-(use-package yasnippet
- :ensure t
- :config
- (yas-global-mode 1)
- (setq yas-snippets-dirs
-     '("~/.config/emacs/snippets")))
-(use-package doom-snippets
- :after yasnippet
- :ensure (:host github
-                 :repo "doomemacs/snippets"
-                 :files ("*.el" "*")))
-;;ibuffer
+  
+;; ;;ibuffer
 (use-package nerd-icons-ibuffer
   :ensure t
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
@@ -272,15 +247,15 @@ Create prefix map: +general-global-NAME-map. Prefix bindings in BODY with PREFIX
   :ensure t
   :after pdf-view)
 ;; Haskell stuff
-(use-package haskell-mode
-  :ensure t
-  :hook
-  (haskell-mode . subword-mode)
-  (haskell-mode .interactive-haskell-mode)
-  (haskell-mode . turn-on-haskell-indentation)
-  (haskell-mode .haskell-auto-insert-module-template))
-(use-package dhall-mode
-  :ensure t)
+;; (use-package haskell-mode
+;;   :ensure t
+;;   :hook
+;;   (haskell-mode . subword-mode)
+;;   (haskell-mode .interactive-haskell-mode)
+;;   (haskell-mode . turn-on-haskell-indentation)
+;;   (haskell-mode .haskell-auto-insert-module-template))
+;; (use-package dhall-mode
+  ;; :ensure t)
 ;; emacs yeah cause emacs emacses 
 (use-feature emacs
   :custom
@@ -288,35 +263,6 @@ Create prefix map: +general-global-NAME-map. Prefix bindings in BODY with PREFIX
   (text-mode-ispell-word-completion nil))
 
 ;; completion cause I want it complete
-(use-package vertico
-  :ensure t
-  :config
-  (vertico-mode))
-(use-package corfu
-  :custom
-  (corfu-cycle t)
-  :init
-  (global-corfu-mode))
-(use-package consult
-  :ensure t)
-(use-package embark
-  :ensure t)
-
-(use-package embark-consult
-  :ensure t)
-
-(use-package marginalia
-  :ensure t)
-
-
-(use-package orderless
-  :ensure t
-  :custom
-  ;; (orderless-style-dispatchers '(orderless-affix-dispatch))
-  ;; (orderless-component-separator #'orderless-escapable-split-on-space)
-  (completion-styles '(orderless basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package wgrep
   :ensure t)
@@ -329,20 +275,18 @@ Create prefix map: +general-global-NAME-map. Prefix bindings in BODY with PREFIX
 
 ;; term cause baby I ain't on bad terms
 (use-package vterm
-  :ensure t)
+  :ensure t
+  :config
+  (setq vterm-max-scrollback (* 50 1000)))
 (use-package eat
   :ensure t
   :hook eshell-load)
-;; essential stuff
-(auto-save-visited-mode)
-(setq display-line-numbers-type 'relative)
+(use-package tldr
+  :ensure t)
 
 
 ;; :NOTE| Folding of code-blocks
 
-(use-package treesit-fold
-  :ensure (:host github :repo "emacs-tree-sitter/treesit-fold")
-  :hook (emacs-startup . global-treesit-fold-mode))
 
   
 
@@ -390,5 +334,55 @@ Create prefix map: +general-global-NAME-map. Prefix bindings in BODY with PREFIX
 ;; (package! async :pin "b99658e831bc7e7d20ed4bb0a85bdb5c7dd74142")
 
 ;; lisp mode stuff
+;; TODO:
 (add-hook 'emacs-lisp-mode-hook (lambda () (indent-tabs-mode -1))) 
+(eval-after-load 'tramp '(setenv "SHELL" "/bin/sh"))
+
+(use-feature dired
+  :commands dired-jump
+  :init
+  ;; some goodies stolen from doom emacs
+  (setq dired-dwim-target t
+        dired-auto-revert-buffer #'dired-buffer-stale-p
+        dired-create-destination-dirs 'ask
+        dired-recursive-copies 'always
+        dired-recursive-deletes 'top))
+(use-package nerd-icons-dired
+  :ensure t
+  :after dired
+  :hook
+  (dired-mode . nerd-icons-dired-mode))
+(use-package diredfl
+  :ensure t
+  :after dired
+  :config
+  (diredfl-global-mode))
+(global-auto-revert-mode 1)
+(setq global-auto-revert-non-file-buffers t)
+(auto-save-visited-mode 1)
+(require 'verticaldisability)
+(require 'malificient-keys)
+(require 'mybigtree)
+(require 'schizo-which-key)
+(require 'organizational)
+(require 'aesthetics)
+(require 'philosophy)
+(require 'elespizzler)
+(require 'zaeditor)
+(require 'schizomonad)
+(require 'schizotoml)
+(require 'billsgottobepaid)
+(require 'thedatadontlie)
+(setq eshell-rc-script "~/.config/emacs/eshell/profile"
+      eshell-aliases-file "~/.config/emacs/eshell/aliases"
+      eshell-history-size 5000
+      eshell-buffer-maximum-lines 5000
+      eshell-hist-ignoredups t
+      eshell-scroll-to-bottom-on-input t
+      eshell-destroy-buffer-when-process-dies t
+      eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh"))
+
+(setq password-cache-expiry nil
+      enable-remote-dir-locals t)
+
 ;; end of init.el
