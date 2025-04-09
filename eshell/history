@@ -11,3 +11,11 @@ cd ..
 ./xbps-src show-options st
 ./xbps-src show-options dwm
 find-file ./srcpkgs/st/template 
+ls
+ls /usr/share/applications/ 
+ls ~/.local/share/applications/
+ls st
+ln -s st/st.desktop ~/.local/share/applications/st.desktop
+ls ~/.local/share/applications/
+cat st/st.desktop 
+find-file st/st.desktop 

@@ -42,10 +42,10 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (setq inhibit-startup-screen t) ;; I wanted VIM
-(setq inhibit-startup-message t) 
+(setq inhibit-startup-message t)
 ;; (global-display-line-numbers-mode 'relative)
 (setq initial-scratch-message "\
-;; DO NOT PANIC
+;; DON'T PANIC
 ")
 (add-hook 'prog-mode 'column-number-mode)
 (set-face-attribute 'default nil :family "Iosevka" :height 110)
@@ -53,7 +53,15 @@
 (column-number-mode)
 (display-line-numbers-mode)
 (setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode)
 
+(use-feature simple
+  ;; :general
+  ;; (+general-global-toggle
+  ;;   "f" 'auto-fill-mode)
+  :custom
+  (eval-expression-debug-on-error nil)
+  (fill-column 80 "Wrap at 80 columns."))
 
 
 ;; (use-package doom-themes
@@ -159,4 +167,15 @@
   :defer t
   :config
   (nav-flash-show))
+(use-package highlight-numbers
+  :ensure (:host github :repo "Fanael/highlight-numbers")
+  :hook prog-mode)
+
+(use-package ws-butler
+  :ensure t
+  :config
+  (ws-butler-global-mode))
+
+
+
 (provide 'aesthetics)

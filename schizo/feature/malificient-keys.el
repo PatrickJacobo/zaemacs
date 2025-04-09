@@ -8,6 +8,8 @@
   :init
   (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
   (setq evil-want-keybinding nil)
+  (setq evil-want-Y-yank-to-eol t)
+  (setq evil-want-C-u-scroll t)
   (setq evil-undo-system 'undo-fu)
   :config
   (evil-mode 1))
@@ -71,6 +73,16 @@
     (evil-define-key '(normal visual) 'global (kbd "C-c C-+") 'evil-numbers/inc-at-pt-incremental)
     (evil-define-key '(normal visual) 'global (kbd "C-c C--") 'evil-numbers/dec-at-pt-incremental))
 
+(use-package evil-embrace
+  :ensure t
+  :after evil
+  :config
+  (evil-embrace-enable-evil-surround-integration))
+
+(use-package avy
+  :ensure t
+  :config
+  (global-set-key (kbd "C-'") 'avy-goto-char-2)) 
 ;; (use-package lispy
 ;;   :ensure t
 ;;   :hook ((lisp-mode . lispy-mode)

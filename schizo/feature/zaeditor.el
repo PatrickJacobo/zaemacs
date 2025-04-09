@@ -26,6 +26,15 @@
   (auto-revert-notify t)
   (auto-revert-verbose t))
 
+(use-feature saveplace
+  :hook
+  (after-init . save-place-mode))
+
+(use-feature savehist
+  :hook (after-init . savehist-mode)
+  :custom
+  (savehist-additional-variables '(abbrev-minor-mode-table-alist)))
+
 (use-feature ediff
   :hook
   ((ediff-prepare-buffer . outline-show-all)
@@ -54,6 +63,13 @@ current line.")
   :config
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
  
+(use-package fancy-compilation
+ :ensure t
+ :config
+ (fancy-compilation-mode)
+ :custom
+ (fancy-compilation-override-colors nil)
+ (fancy-compilation-scroll-output 'first-error))
 
 (provide 'zaeditor)
 

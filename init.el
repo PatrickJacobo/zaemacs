@@ -56,6 +56,13 @@ NAME and ARGS are in `use-package'."
      use-package-expand-minimally t))
 (add-to-list 'load-path "~/.config/emacs/schizo/modes")
 (add-to-list 'load-path "~/.config/emacs/schizo/feature")
+
+;; DESKTOP STUFF uncomment to enable exwm
+;; (add-to-list 'load-path "~/.config/emacs/schizo/desktop")
+;; (require 'mysmallexwm)
+;; DESKTOP STUFF END
+
+
 (setq user-full-name "Patrick Lee"
       user-mail-address "leepatrick338@gmail.com")
 (setq gc-cons-threshold #x40000000)
@@ -84,7 +91,7 @@ NAME and ARGS are in `use-package'."
   :prefix-map '+prefix-map
   :prefix-command '+prefix-map
   :prefix "SPC"
-  :global-prefix "S-SPC")
+  :global-prefix "M-SPC")
  (general-create-definer global-definer
      :wk-full-keys nil
      :keymaps '+prefix-map)
@@ -94,6 +101,7 @@ NAME and ARGS are in `use-package'."
   "!" 'shell-command
   ":" 'eval-expression
   "h" (general-simulate-key "C-h" :which-key "help")
+  "w" (general-simulate-key "C-w" :which-key "windows")
   "z" '((lambda (local) (interactive "p")
          (unless repeat-mode (repeat-mode))
          (let ((local current-prefix-arg)
@@ -143,6 +151,7 @@ Create prefix map: +general-global-NAME-map. Prefix bindings in BODY with PREFIX
        "pt" 'elpaca-try
        "pv" 'elpaca-visit)
  ;; shell stuff
+ ;; should move it out
  (+general-global-menu! "Terminals" "v"
        "t" 'vterm
        "y" 'eshell)
@@ -150,7 +159,8 @@ Create prefix map: +general-global-NAME-map. Prefix bindings in BODY with PREFIX
    "e" 'find-file
    "m" 'mkdir)
  (+general-global-menu! "vc-control" "g")
-   
+ (+general-global-menu! "search" "s")
+
 ;; buffer stuff
  (+general-global-menu! "buffer" "b"
   "d" 'kill-current-buffer
@@ -220,7 +230,7 @@ Create prefix map: +general-global-NAME-map. Prefix bindings in BODY with PREFIX
  :after flycheck
  :ensure t
  :hook flycheck-mode)
-  
+
 ;; ;;ibuffer
 (use-package nerd-icons-ibuffer
   :ensure t
@@ -231,16 +241,7 @@ Create prefix map: +general-global-NAME-map. Prefix bindings in BODY with PREFIX
 (use-package ibuffer-projectile
   :ensure t
   ;; Group ibuffer's list by project root
-  :hook (ibuffer . ibuffer-projectile-set-filter-groups)
-  :config
-  (setq ibuffer-projectile-prefix
-        (if (modulep! +icons)
-            (concat (nerd-icons-octicon
-                     "nf-oct-file_directory"
-                     :face ibuffer-filter-group-name-face
-                     :v-adjust -0.05)
-                    " ")
-          "Project: ")))
+  :hook (ibuffer . ibuffer-projectile-set-filter-groups))
 (use-package pdf-tools
   :ensure t)
 (use-package saveplace-pdf-view
@@ -256,7 +257,7 @@ Create prefix map: +general-global-NAME-map. Prefix bindings in BODY with PREFIX
 ;;   (haskell-mode .haskell-auto-insert-module-template))
 ;; (use-package dhall-mode
   ;; :ensure t)
-;; emacs yeah cause emacs emacses 
+;; emacs yeah cause emacs emacses
 (use-feature emacs
   :custom
   (tab-always-indent 'complete)
@@ -274,13 +275,6 @@ Create prefix map: +general-global-NAME-map. Prefix bindings in BODY with PREFIX
   :ensure t)
 
 ;; term cause baby I ain't on bad terms
-(use-package vterm
-  :ensure t
-  :config
-  (setq vterm-max-scrollback (* 50 1000)))
-(use-package eat
-  :ensure t
-  :hook eshell-load)
 (use-package tldr
   :ensure t)
 
@@ -288,7 +282,7 @@ Create prefix map: +general-global-NAME-map. Prefix bindings in BODY with PREFIX
 ;; :NOTE| Folding of code-blocks
 
 
-  
+
 
 
 ;; :NOTE| Structural editing & navigation
@@ -335,8 +329,7 @@ Create prefix map: +general-global-NAME-map. Prefix bindings in BODY with PREFIX
 
 ;; lisp mode stuff
 ;; TODO:
-(add-hook 'emacs-lisp-mode-hook (lambda () (indent-tabs-mode -1))) 
-(eval-after-load 'tramp '(setenv "SHELL" "/bin/sh"))
+(add-hook 'emacs-lisp-mode-hook (lambda () (indent-tabs-mode -1)))
 
 (use-feature dired
   :commands dired-jump
@@ -360,29 +353,33 @@ Create prefix map: +general-global-NAME-map. Prefix bindings in BODY with PREFIX
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 (auto-save-visited-mode 1)
+
+
 (require 'verticaldisability)
+(require 'solicitation)
+(require 'not-my-litter)
 (require 'malificient-keys)
 (require 'mybigtree)
 (require 'schizo-which-key)
 (require 'organizational)
 (require 'aesthetics)
 (require 'philosophy)
+(require 'markingdown)
 (require 'elespizzler)
 (require 'zaeditor)
+(require 'zashell)
 (require 'schizomonad)
 (require 'schizotoml)
 (require 'billsgottobepaid)
 (require 'thedatadontlie)
-(setq eshell-rc-script "~/.config/emacs/eshell/profile"
-      eshell-aliases-file "~/.config/emacs/eshell/aliases"
-      eshell-history-size 5000
-      eshell-buffer-maximum-lines 5000
-      eshell-hist-ignoredups t
-      eshell-scroll-to-bottom-on-input t
-      eshell-destroy-buffer-when-process-dies t
-      eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh"))
 
-(setq password-cache-expiry nil
-      enable-remote-dir-locals t)
+(setq password-cache-expiry nil)
 
+
+;; this is temporary,shall be moved to a file some day
+ ;; (enable-remote-dir-locals t))
+
+;; I do not want this, it is getting git ignored, still it will get autogenerated
+(setq custom-file "~/.config/emacs/customshit.el")
+(load custom-file)
 ;; end of init.el

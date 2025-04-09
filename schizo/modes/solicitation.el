@@ -1,14 +1,24 @@
-;;; `(upcase (file-name-nondirectory (file-name-sans-extension (buffer-file-name))))` --- Summary -*- lexical-binding: t; -*-
+;;; SOLICITATION --- Summary -*- lexical-binding: t; -*-
 ;;
-;; Author: `(concat user-full-name)` <`(concat user-mail-address)`>
-;; Copyright © `(format-time-string "%Y")`, `(concat user-full-name)`, all rights reserved.
-;; Created: `(format-time-string "%e %B %Y")`
+;; Author: Patrick Lee <leepatrick338@gmail.com>
+;; Copyright © 2025, Patrick Lee, all rights reserved.
+;; Created:  6 April 2025
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Commentary:
 ;;
-;;  $1
+;;  ;;; SOLICITATION --- Summary -*- lexical-binding: t; -*-
+;;
+;; Author: Patrick Lee <leepatrick338@gmail.com>
+;; Copyright © 2025, Patrick Lee, all rights reserved.
+;; Created:  6 April 2025
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;; Commentary:
+;;
+;;
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -36,8 +46,17 @@
 ;;
 ;;; Code:
 
-$0
+(use-package request
+  :ensure t)
 
-(provide '`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`) 
+(use-package plz
+  :ensure t)
+
+(use-package hurl-mode
+ :ensure (:host github :repo "jaszhe/hurl-mode"))
+
+
+
+(provide 'solicitation)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; `(file-name-nondirectory (buffer-file-name))` ends here
+;;; solicitation.el ends here

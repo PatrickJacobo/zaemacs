@@ -27,6 +27,8 @@
  :after lsp
  :config (message "Loaded lsp-haskell"))
 
+(use-package dhall-mode
+  :ensure t)
  
 ;;(use-package intero
 ;;  :ensure t

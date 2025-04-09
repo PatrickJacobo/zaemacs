@@ -17,3 +17,6 @@ recentf
 /tldr/
 /transient/
 history
+/eshell/history
+/eshell/lastdir
+/backup/

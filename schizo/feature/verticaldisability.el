@@ -17,9 +17,20 @@
   :custom
   (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
   :init
-  (marginalia-mode))
+  (marginalia-mode)
+  :config
+  (setf (alist-get 'elpaca-info marginalia-command-categories) 'elpaca))
+    
 (use-package consult
-  :ensure t)
+  :ensure t
+  :after (general)
+  :general
+    (+general-global-search
+        "i" 'consult-imenu
+        "d" 'consult-dir
+        "b" 'consult-buffer
+        "p" 'consult-yank-pop
+        "t" 'consult-theme))
 (use-package consult-dir)
 
 (use-package embark
@@ -27,7 +38,7 @@
 
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
-   ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("M-C-." . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
 
   :init
@@ -103,11 +114,8 @@
 ;;   :hook
 ;;   (embark-collect-mode . consult-preview-at-point-mode))
 
-(defun ha/autoinsert-yas-expand()
-  "Replace text in yasnippet template."
-  (yas-expand-snippet (buffer-string) (point-min) (point-max)))
 (use-package yasnippet
- :ensure t
+ :ensure (:wait t)
  :config
  (yas-global-mode 1)
  (setq yas-snippets-dirs
@@ -130,28 +138,32 @@
   (setq aya-persist-snippets-dir "~/.config/emacs/snippets")
   :ensure t)
 
+(defun ha/autoinsert-yas-expand()
+  "Replace text in yasnippet template."
+  (yas-expand-snippet (buffer-string) (point-min) (point-max)))
 
+;; (provide 'autoinsert)
 (use-feature autoinsert
+  :after yasnippet
   :init
   (setq auto-insert-query nil)
-
   (setq auto-insert-directory (locate-user-emacs-file "templates"))
   (add-hook 'find-file-hook 'auto-insert)
   (auto-insert-mode 1)
   :config
-  (define-auto-insert "\\.el?$" "default-elisp.el")
-  (define-auto-insert "\\.sh?$" "default-sh.sh")
-  (define-auto-insert "\\.php?$" "default-php.php"))
+  (define-auto-insert "\\.el?$" ["default-elisp.el" ha/autoinsert-yas-expand])
+  (define-auto-insert "\\.sh?$" ["default-sh.sh" ha/autoinsert-yas-expand])
+  (define-auto-insert "\\.php?$" ["default-php.php" ha/autoinsert-yas-expand]))
 
-(general-define-key
- :prefix "SPC"
- :states 'normal
-  "s" '(:ignore t "search")
-  "si" 'consult-imenu
-  "sd" 'consult-dir
-  "sb" 'consult-buffer
-  "sp" 'consult-yank-pop
-  "st" 'consult-theme)
+;; (general-define-key
+;;  :prefix "SPC"
+;;  :states 'normal
+;;   "s" '(:ignore t "search")
+;;   "si" 'consult-imenu
+;;   "sd" 'consult-dir
+;;   "sb" 'consult-buffer
+;;   "sp" 'consult-yank-pop
+;;   "st" 'consult-theme)
 
 (provide 'verticaldisability)
 

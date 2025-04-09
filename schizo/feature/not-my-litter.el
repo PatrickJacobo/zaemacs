@@ -1,5 +1,4 @@
- EmacsLisp
-;;; my-littering.el --- Teach Emacs To Litter Properly -*- lexical-binding: t; -*-
+;;; not-my-litter.el --- Teach Emacs To Litter Properly -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2023-2025 Icy-Thought
 
@@ -23,4 +22,5 @@
             backup-directory-alist
             `((".*" . ,(no-littering-expand-var-file-name "backups/"))))))
 
-(provide 'my-littering)
+(provide 'not-my-litter
+ )
