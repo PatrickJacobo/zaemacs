@@ -1,0 +1,9 @@
+#+title: `(upcase (file-name-nondirectory (file-name-sans-extension (buffer-file-name))))`
+#+subtitle: $1
+#+email: `(user-mail-address)`
+#+author: `(user-full-name)`
+
+* Index :toc:
+- [[#2][$2]]
+
+* $2

@@ -22,5 +22,4 @@
             backup-directory-alist
             `((".*" . ,(no-littering-expand-var-file-name "backups/"))))))
 
-(provide 'not-my-litter
- )
+(provide 'not-my-litter)

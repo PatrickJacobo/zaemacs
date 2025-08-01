@@ -1,4 +1,40 @@
-
+;;; mybigtree.el --- Summary -*- lexical-binding: t; -*-
+;;
+;; Author: Patrick Lee <leepatrick338@gmail.com>
+;; Copyright © 2025, Patrick Lee, all rights reserved.
+;; Created:  2025
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;; Commentary:
+;;  The tree is sitting
+;;
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;; Change log:
+;;
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either version 3, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program; see the file COPYING.  If not, write to
+;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
+;; Floor, Boston, MA 02110-1301, USA.
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;; Code:
 
 ;; stolen from masteringemacs cause they do be cool
 ;; (mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
@@ -17,27 +53,28 @@
              (js-json-mode . json-ts-mode)))
     (add-to-list 'major-mode-remap-alist mapping))
   (setq treesit-language-source-alist
-   '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-     (cmake "https://github.com/uyha/tree-sitter-cmake")
-     (css "https://github.com/tree-sitter/tree-sitter-css")
-     (dhall "https://github.com/jbellerb/tree-sitter-dhall")
-     (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-     (go "https://github.com/tree-sitter/tree-sitter-go")
-     (html "https://github.com/tree-sitter/tree-sitter-html")
-     (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-     (jsdoc "https://github.com/tree-sitter/tree-sitter-jsdoc" "master" "src")
-     (json "https://github.com/tree-sitter/tree-sitter-json")
-     (lua "https://github.com/tree-sitter-grammars/tree-sitter-lua")
-     (make "https://github.com/alemuller/tree-sitter-make")
-     (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-     (php "https://github.com/tree-sitter/tree-sitter-php" "master" "php/src")
-     (phpdoc "https://github.com/claytonrcarter/tree-sitter-phpdoc")
-     (python "https://github.com/tree-sitter/tree-sitter-python")
-     (toml "https://github.com/tree-sitter/tree-sitter-toml")
-     (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-     (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-     (xml "https://github.com/tree-sitter-grammars/tree-sitter-xml" "master" "xml/src")
-     (yaml "https://github.com/ikatyang/tree-sitter-yaml"))))
+        '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+          (cmake "https://github.com/uyha/tree-sitter-cmake")
+          (css "https://github.com/tree-sitter/tree-sitter-css")
+          (dhall "https://github.com/jbellerb/tree-sitter-dhall")
+          (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+          (go "https://github.com/tree-sitter/tree-sitter-go")
+          (html "https://github.com/tree-sitter/tree-sitter-html")
+          (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+          (jsdoc "https://github.com/tree-sitter/tree-sitter-jsdoc" "master" "src")
+          (json "https://github.com/tree-sitter/tree-sitter-json")
+          (lua "https://github.com/tree-sitter-grammars/tree-sitter-lua")
+          (make "https://github.com/alemuller/tree-sitter-make")
+          (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+          (php "https://github.com/tree-sitter/tree-sitter-php" "master" "php/src")
+          (phpdoc "https://github.com/claytonrcarter/tree-sitter-phpdoc")
+          (python "https://github.com/tree-sitter/tree-sitter-python")
+          (rust "https://github.com/tree-sitter/tree-sitter-rust")
+          (toml "https://github.com/tree-sitter/tree-sitter-toml")
+          (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+          (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+          (xml "https://github.com/tree-sitter-grammars/tree-sitter-xml" "master" "xml/src")
+          (yaml "https://github.com/ikatyang/tree-sitter-yaml"))))
 
 
 
@@ -51,3 +88,5 @@
   :hook (emacs-startup . global-treesit-fold-mode))
 
 (provide 'mybigtree)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; mybigtree.el ends here

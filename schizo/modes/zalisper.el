@@ -1,14 +1,17 @@
-;;; margkingdown.el --- Summary -*- lexical-binding: t; -*-
+;;; zalisper --- Summary -*- lexical-binding: t; -*-
 ;;
 ;; Author: Patrick Lee <leepatrick338@gmail.com>
 ;; Copyright © 2025, Patrick Lee, all rights reserved.
-;; Created:  6 April 2025
+;; Created: 25 April 2025
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Commentary:
+;; Config for various Lisp flavors
+;;
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;;; Change log:
 ;;
 ;;
@@ -33,13 +36,20 @@
 ;;
 ;;; Code:
 
-(use-package markdown-mode
-  :ensure t
-  :mode ("README\\.md\\'" . gfm-mode)
-  :init (setq markdown-command "multimarkdown")
-  :bind (:map markdown-mode-map
-              ("C-c C-e" . markdown-do)))
+(setq-default indent-tabs-mode nil)
 
-(provide 'markingdown) 
+(use-package parinfer-rust-mode
+  :ensure t
+  :hook emacs-lisp-mode
+  :hook scheme-mode
+  :init
+  (setq parinfer-rust-auto-download t))
+
+;; (use-package geiser)
+;; (use-package geiser-racket)
+;; (use-package geiser-guile)
+
+
+(provide 'zalisper)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; markingdown.el ends here
+;;; zalisper.el ends here

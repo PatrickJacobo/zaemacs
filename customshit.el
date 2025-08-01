@@ -53,7 +53,39 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(warning-suppress-types '((emacs) '(direnv))))
+ '(mediawiki-site-alist
+   '(("MEDIAWIKI_1.39" "https://dev.mw.test" "admin" "Chachas!123" ""
+      "Página Principal")
+     ("Wikipedia" "https://en.wikipedia.org/w/" "username" "password" nil
+      "Main Page")))
+ '(package-selected-packages
+   '(auctex avy cape consult-flycheck diff-hl eat embark-consult evil-anzu
+            evil-args evil-goggles evil-matchit evil-nerd-commenter evil-numbers
+            evil-surround exwm haskell-mode indent-bars marginalia markdown-mode
+            orderless pdf-tools plz rainbow-delimiters rainbow-mode request
+            smartparens undo-fu vertico wgrep ws-butler yasnippet-snippets))
+ '(safe-local-variable-values
+   '((ssh-deploy-root-remote . "/ssh:prod:/data/git/mediawiki_1.39/")
+     (ssh-deploy-root-local . "~/git/mediawiki_1.39/")
+     (ssh-deploy-remote-sql-database . "mwvintage")
+     (ssh-deploy-root-remote . "/ssh:prod:/data/git/mediawiki_vintage/")
+     (ssh-deploy-root-local . "~/git/mediawiki_vintage/")
+     (ssh-deploy-remote-sql-user . "database_password")
+     (ssh-deploy-remote-sql-password . "wikiuser")
+     (ssh-deploy-remote-sql-database . "mwmineductest")
+     (ssh-deploy-root-remote . "/ssh:prod:/data/git/mediawiki_test/")
+     (ssh-deploy-root-local . "~/git/mediawiki_test/")
+     (pyvenv-workon expand-file-name ".venv"
+                    (locate-dominating-file default-directory ".dir-locals.el"))
+     (ssh-deploy-root-remote . "/ssh:prod:/data/git/patrick/")
+     (ssh-deploy-root-local . "~/git/patrick/")
+     (ssh-deploy-remote-sql-user . "root")
+     (ssh-deploy-remote-sql-password . "root")
+     (ssh-deploy-remote-sql-database . "propiedaddb")
+     (ssh-deploy-on-explicit-save . 1) (ssh-deploy-async . 1)
+     (ssh-deploy-root-remote . "/ssh:prod:/data/git/ocr_test/")
+     (ssh-deploy-root-local . "~/git/ocr_test/")))
+ '(warning-suppress-types '((ox-latex) (emacs) '(direnv))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -66,4 +98,3 @@
  '(evil-goggles-undo-redo-change-face ((t (:inherit diff-changed))))
  '(evil-goggles-undo-redo-remove-face ((t (:inherit diff-removed))))
  '(evil-goggles-yank-face ((t (:inherit diff-changed)))))
-

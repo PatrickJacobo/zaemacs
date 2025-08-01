@@ -1,14 +1,17 @@
-;;; margkingdown.el --- Summary -*- lexical-binding: t; -*-
+;;; thepython.el --- Summary -*- lexical-binding: t; -*-
 ;;
 ;; Author: Patrick Lee <leepatrick338@gmail.com>
 ;; Copyright © 2025, Patrick Lee, all rights reserved.
-;; Created:  6 April 2025
+;; Created: 29 April 2025
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Commentary:
 ;;
+;;
+;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;;; Change log:
 ;;
 ;;
@@ -33,13 +36,23 @@
 ;;
 ;;; Code:
 
-(use-package markdown-mode
-  :ensure t
-  :mode ("README\\.md\\'" . gfm-mode)
-  :init (setq markdown-command "multimarkdown")
-  :bind (:map markdown-mode-map
-              ("C-c C-e" . markdown-do)))
 
-(provide 'markingdown) 
+(use-package pip-requirements)
+(use-package pipenv)
+(use-package pyvenv)
+(use-package python-pytest)
+(use-package pyimport
+  :ensure t)
+(use-package py-isort
+  :ensure t)
+(use-package lsp-pyright
+  :ensure t
+  :custom (lsp-pyright-langserver-command "basedpyright") ;; or basedpyright
+  :hook (python-mode . (lambda ()
+                         (require 'lsp-pyright)
+                         (lsp))))  ; or lsp-deferred
+(use-package org-src-context
+  :ensure (:host github :repo "karthink/org-src-context"))
+(provide 'thepython)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; markingdown.el ends here
+;;; thepython.el ends here

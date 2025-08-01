@@ -1,4 +1,4 @@
-;;; ZASHELL --- Summary -*- lexical-binding: t; -*-
+;;; zashell.el --- Summary -*- lexical-binding: t; -*-
 ;;
 ;; Author: Patrick Lee <leepatrick338@gmail.com>
 ;; Copyright © 2025, Patrick Lee, all rights reserved.
@@ -7,17 +7,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Commentary:
-;;
-;;  ;;; ZASHELL --- Summary -*- lexical-binding: t; -*-
-;;
-;; Author: Patrick Lee <leepatrick338@gmail.com>
-;; Copyright © 2025, Patrick Lee, all rights reserved.
-;; Created:  6 April 2025
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;;; Commentary:
-;;
+;;  Stuff for shell and ssh
 ;;
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -60,6 +50,8 @@
   :after eshell
   :ensure t
   :config
+  (add-hook 'eshell-load-hook #'eat-eshell-visual-command-mode)
+  (eat-eshell-mode)
   (add-hook 'eshell-load-hook #'eat-eshell-mode))
 
 (use-package vterm
@@ -68,6 +60,15 @@
   (setq vterm-max-scrollback (* 50 1000)))
 
 
+(use-package hydra)
+(use-package ssh-deploy
+  :ensure (:host github :repo "emacs-straight/ssh-deploy")
+  :after hydra
+  :hook ((after-save . ssh-deploy-after-save)
+         (find-file . ssh-deploy-find-file))
+  :config
+  (ssh-deploy-line-mode)
+  (ssh-deploy-hydra "C-c C-z"))
 (eval-after-load 'tramp '(setenv "SHELL" "/bin/sh"))
 
 (use-package eshell-syntax-highlighting
@@ -88,6 +89,8 @@
         (concat
          (propertize (replace-regexp-in-string "/home/[a-z]+" "~" ( eshell/pwd )) 'face `(:foreground "orange"))
          (propertize "\nλ " 'face `(:foreground "lavender")))))
+
+
 
 
 (provide 'zashell)

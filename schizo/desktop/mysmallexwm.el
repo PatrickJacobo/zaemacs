@@ -50,17 +50,17 @@
 
   ;; These keys should always pass through to Emacs
   (setq exwm-input-prefix-keys
-    '(?\C-x
-      ?\C-u
-      ?\C-h
-      ?\C-w
-      ?\M-x
-      ?\M-`
-      ?\M-&
-      ?\M-:
-      ?\M-\ 
-      ?\C-\M-j  ;; Buffer list
-      ?\C-\ ))  ;; Ctrl+Space
+        '(?\C-x
+          ?\C-u
+          ?\C-h
+          ?\C-w
+          ?\M-x
+          ?\M-`
+          ?\M-&
+          ?\M-:
+          ?\M-\
+          ?\C-\M-j  ;; Buffer list
+          ?\C-\ ))  ;; Ctrl+Space
 
   ;; Ctrl+Q will enable the next key to be sent directly
   (define-key exwm-mode-map [?\C-q] 'exwm-input-send-next-key)
@@ -102,6 +102,5 @@
 
 
 (provide 'mysmallexwm)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; mysmallexwm.el ends here

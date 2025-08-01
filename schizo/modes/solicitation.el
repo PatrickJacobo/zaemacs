@@ -1,4 +1,4 @@
-;;; SOLICITATION --- Summary -*- lexical-binding: t; -*-
+;;;;   solicitation.el --- Summary -*- lexical-binding: t; -*-
 ;;
 ;; Author: Patrick Lee <leepatrick338@gmail.com>
 ;; Copyright © 2025, Patrick Lee, all rights reserved.
@@ -8,17 +8,7 @@
 ;;
 ;;; Commentary:
 ;;
-;;  ;;; SOLICITATION --- Summary -*- lexical-binding: t; -*-
-;;
-;; Author: Patrick Lee <leepatrick338@gmail.com>
-;; Copyright © 2025, Patrick Lee, all rights reserved.
-;; Created:  6 April 2025
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;;; Commentary:
-;;
-;;
+;; Http
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -53,7 +43,7 @@
   :ensure t)
 
 (use-package hurl-mode
- :ensure (:host github :repo "jaszhe/hurl-mode"))
+  :ensure (:host github :repo "jaszhe/hurl-mode"))
 
 
 

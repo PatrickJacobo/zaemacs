@@ -1,14 +1,17 @@
-;;; margkingdown.el --- Summary -*- lexical-binding: t; -*-
+;;; statisticalnotebook.el --- Summary -*- lexical-binding: t; -*-
 ;;
-;; Author: Patrick Lee <leepatrick338@gmail.com>
+;; Author: Patrick Lee <jacob@voidlap>
 ;; Copyright © 2025, Patrick Lee, all rights reserved.
-;; Created:  6 April 2025
+;; Created:  9 June 2025
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Commentary:
 ;;
+;;
+;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;;; Change log:
 ;;
 ;;
@@ -33,13 +36,9 @@
 ;;
 ;;; Code:
 
-(use-package markdown-mode
-  :ensure t
-  :mode ("README\\.md\\'" . gfm-mode)
-  :init (setq markdown-command "multimarkdown")
-  :bind (:map markdown-mode-map
-              ("C-c C-e" . markdown-do)))
+(use-package ein)
 
-(provide 'markingdown) 
+
+(provide 'statisticalnotebook)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; markingdown.el ends here
+;;; statisticalnotebook.el ends here

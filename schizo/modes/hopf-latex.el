@@ -1,14 +1,17 @@
-;;; margkingdown.el --- Summary -*- lexical-binding: t; -*-
+;;; HOPF-LATEX --- Summary -*- lexical-binding: t; -*-
 ;;
-;; Author: Patrick Lee <leepatrick338@gmail.com>
+;; Author: Patrick Lee <jacob@voidlap>
 ;; Copyright © 2025, Patrick Lee, all rights reserved.
-;; Created:  6 April 2025
+;; Created: 15 July 2025
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Commentary:
+;;  Yeah, so I take some stuff from Tony Zorman, and as his license says
+;;  like a lot of things in general in my Emacs config.
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;;; Change log:
 ;;
 ;;
@@ -33,13 +36,29 @@
 ;;
 ;;; Code:
 
-(use-package markdown-mode
-  :ensure t
-  :mode ("README\\.md\\'" . gfm-mode)
-  :init (setq markdown-command "multimarkdown")
-  :bind (:map markdown-mode-map
-              ("C-c C-e" . markdown-do)))
+;; Yeah, mostly for latex
+(use-package jinx
+  :hook (emacs-startup . global-jinx-mode)
+  :bind (("M-$" . jinx-correct)
+         ("C-M-$" . jinx-languages)))
 
-(provide 'markingdown) 
+(use-package auctex
+  :ensure (:wait t)
+  :config
+  (setq TeX-auto-save t)
+  (setq TeX-parse-self t)
+  (setq-default TeX-master nil))
+
+
+(use-package xenops
+  :after auctex
+  :hook (latex-mode LaTeX-mode))
+
+(use-package cdlatex)
+
+(use-feature reftex)
+
+
+(provide 'hopf-latex)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; markingdown.el ends here
+;;; hopf-latex.el ends here

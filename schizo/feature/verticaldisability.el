@@ -1,10 +1,46 @@
-
+;;; verticaldisability.el --- Summary -*- lexical-binding: t; -*-
+;;
+;; Author: Patrick Lee <leepatrick338@gmail.com>
+;; Copyright © 2025, Patrick Lee, all rights reserved.
+;; Created:  2025
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;; Commentary:
+;; Vert&co
+;;
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;; Change log:
+;;
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either version 3, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program; see the file COPYING.  If not, write to
+;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
+;; Floor, Boston, MA 02110-1301, USA.
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;; Code:
 (use-package vertico
   :ensure t
   :bind (:map vertico-map
-         ("C-j" . vertico-next)
-         ("C-k" . vertico-previous)
-         ("C-f" . vertico-exit))
+              ("C-j" . vertico-next)
+              ("C-k" . vertico-previous)
+              ("C-f" . vertico-exit))
   :custom
   (vertico-cycle t)
   :init
@@ -20,18 +56,25 @@
   (marginalia-mode)
   :config
   (setf (alist-get 'elpaca-info marginalia-command-categories) 'elpaca))
-    
+
 (use-package consult
   :ensure t
   :after (general)
   :general
-    (+general-global-search
-        "i" 'consult-imenu
-        "d" 'consult-dir
-        "b" 'consult-buffer
-        "p" 'consult-yank-pop
-        "t" 'consult-theme))
-(use-package consult-dir)
+  (+general-global-search
+    "i" 'consult-imenu
+    "d" 'consult-ripgrep
+    "D" 'consult-dir
+    "b" 'consult-buffer
+    "p" 'consult-yank-pop
+    "t" 'consult-theme))
+
+(use-package consult-dir
+  :ensure t
+  :bind (("C-x C-d" . consult-dir)
+         :map vertico-map
+         ("C-x C-d" . consult-dir)
+         ("C-x C-j" . consult-dir-jump-file)))
 
 (use-package embark
   :ensure t
@@ -68,8 +111,10 @@
   (corfu-cycle t)
   :init
   (global-corfu-mode))
-;; (use-package embark
-;;   :ensure t)
+
+(use-package nerd-icons-corfu
+  :config
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 (use-package embark-consult
   :ensure t
@@ -95,9 +140,9 @@
   (add-hook 'completion-at-point-functions #'cape-dabbrev)
   (add-hook 'completion-at-point-functions #'cape-file)
   (add-hook 'completion-at-point-functions #'cape-elisp-block))
-  ;; (add-hook 'completion-at-point-functions #'cape-history)
-  ;; ...
- 
+;; (add-hook 'completion-at-point-functions #'cape-history)
+;; ...
+
 
 
 (use-package orderless
@@ -115,11 +160,11 @@
 ;;   (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package yasnippet
- :ensure (:wait t)
- :config
- (yas-global-mode 1)
- (setq yas-snippets-dirs
-       '("~/.config/emacs/snippets")))
+  :ensure (:wait t)
+  :config
+  (yas-global-mode 1)
+  (setq yas-snippets-dirs
+        '("~/.config/emacs/snippets")))
 ;; (use-package doom-snippets
 ;;  :after yasnippet
 ;;  :ensure (:host github
@@ -138,22 +183,25 @@
   (setq aya-persist-snippets-dir "~/.config/emacs/snippets")
   :ensure t)
 
-(defun ha/autoinsert-yas-expand()
-  "Replace text in yasnippet template."
-  (yas-expand-snippet (buffer-string) (point-min) (point-max)))
 
 ;; (provide 'autoinsert)
-(use-feature autoinsert
-  :after yasnippet
-  :init
-  (setq auto-insert-query nil)
-  (setq auto-insert-directory (locate-user-emacs-file "templates"))
-  (add-hook 'find-file-hook 'auto-insert)
-  (auto-insert-mode 1)
-  :config
-  (define-auto-insert "\\.el?$" ["default-elisp.el" ha/autoinsert-yas-expand])
-  (define-auto-insert "\\.sh?$" ["default-sh.sh" ha/autoinsert-yas-expand])
-  (define-auto-insert "\\.php?$" ["default-php.php" ha/autoinsert-yas-expand]))
+;; (use-feature autoinsert
+;;   :after yasnippet
+;;   :init
+
+;;  (auto-insert-mode 1)
+;;  (defun ha/autoinsert-yas-expand()
+;;     "Replace text in yasnippet template."
+;;     (yas-expand-snippet (buffer-string) (point-min) (point-max)))
+;;  (setq auto-insert-query nil)
+;;  (setq auto-insert-directory (locate-user-emacs-file "templates"))
+;;  (add-hook 'find-file-hook 'auto-insert)
+;;  (auto-insert-mode 1)
+;;  ;; :config
+;;  (define-auto-insert "\\.el?$" ["default-elisp.el" ha/autoinsert-yas-expand])
+;;  (define-auto-insert "\\.sh?$" ["default-sh.sh" ha/autoinsert-yas-expand])
+;;  (define-auto-insert "\\.php?$" ["default-php.php" ha/autoinsert-yas-expand])
+;;  (define-auto-insert "\\.org?$" ["default-org.org" ha/autoinsert-yas-expand]))
 
 ;; (general-define-key
 ;;  :prefix "SPC"
@@ -166,5 +214,5 @@
 ;;   "st" 'consult-theme)
 
 (provide 'verticaldisability)
-
- 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; verticaldisability.el ends here
